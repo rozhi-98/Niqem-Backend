@@ -7,9 +7,10 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(cookieParser());
+app.use("/", express.static("uploads"));
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: 'http://localhost:5173',
     credentials: true,
   })
 );
@@ -23,7 +24,10 @@ if (process.env.NODE_ENV !== 'PRODUCTION') {
   });
 }
 
+// import all routes
+const user = require("./controllers/user.js");
 
+app.use("/api/v2/user", user);
 
 // it's for ErrorHandling
 app.use(ErrorHandler);
