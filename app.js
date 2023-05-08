@@ -9,10 +9,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use("/", express.static("uploads"));
 app.use(
-  cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  })
+  cors()
 );
 app.use('/', express.static('uploads'));
 app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
@@ -20,12 +17,12 @@ app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 // config
 if (process.env.NODE_ENV !== 'PRODUCTION') {
   require('dotenv').config({
-    path: 'backend/config/.env',
+    path: './config/.env',
   });
 }
 
 // import all routes
-const user = require("./controllers/user.js");
+const user = require("./controllers/user");
 
 app.use("/api/v2/user", user);
 
